@@ -1,1 +1,1 @@
-# dataplatform-aquaculture-template
+# aquaPlatform
