@@ -1,5 +1,5 @@
 
 resource "azurerm_resource_group" "data_platform" {
   name     = "dev-aquaculture-rg"
-  location = "norwayeast"
+  location = var.location
 }
