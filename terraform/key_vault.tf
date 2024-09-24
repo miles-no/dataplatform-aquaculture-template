@@ -19,7 +19,8 @@ resource "azurerm_key_vault" "dataplatform" {
 
     secret_permissions = [
       "Get",
-      "Set"
+      "Set",
+      "List"
     ]
 
     storage_permissions = [
