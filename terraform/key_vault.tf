@@ -1,5 +1,5 @@
-resource "azurerm_key_vault" "example" {
-  name                        = "dataplatform"
+resource "azurerm_key_vault" "dataplatform" {
+  name                        = "havsbruk-dataplatform-kv"
   location                    = azurerm_resource_group.data_platform.location
   resource_group_name         = azurerm_resource_group.data_platform.name
   enabled_for_disk_encryption = true
