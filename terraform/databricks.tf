@@ -16,6 +16,13 @@ resource "databricks_cluster" "this" {
   num_workers             = 2
 }
 
+resource "databricks_secret_scope" "this" {
+  name = "terraform-demo-scope"
+  keyvault_metadata {
+    resource_id = azurerm_key_vault.example.id
+    dns_name    = azurerm_key_vault.example.vault_uri
+  }
+}
 
 resource "databricks_repo" "data_platform" {
   url = var.github_repo
