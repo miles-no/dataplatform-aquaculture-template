@@ -19,10 +19,19 @@ resource "azurerm_key_vault" "dataplatform" {
 
     secret_permissions = [
       "Get",
+      "Set",
+      "List"
     ]
 
     storage_permissions = [
       "Get",
     ]
   }
+}
+
+# Key Vault Secret
+resource "azurerm_key_vault_secret" "storage_account_key" {
+  name         = "storage-account-key"
+  value        = azurerm_storage_account.data_lake.primary_access_key
+  key_vault_id = azurerm_key_vault.dataplatform.id
 }
