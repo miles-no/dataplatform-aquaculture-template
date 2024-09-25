@@ -1,11 +1,11 @@
 # Databricks notebook source
-df_bronze_0 = spark.read.format("delta").load("/mnt/data/bronze/hav_temperature_projection_latest")
+from helpers.adls_utils import read_df_as_delta
+df_bronze_0 = read_df_as_delta("/bronze/hav_temperature_projection_latest")
 display(df_bronze_0)
 
 # COMMAND ----------
 
 from pyspark.sql.functions import explode, from_unixtime, col
-
 
 # Extract lat and lon, and explode variables
 df_bronze_1 = df_bronze_0.select(
@@ -61,11 +61,11 @@ display(df_silver)
 # COMMAND ----------
 
 
-silver_latest_path = "/mnt/data/silver/hav_temperature_projection_latest"
-df_silver.write.format("delta").mode("overwrite").save(silver_latest_path)
+from helpers.adls_utils import save_df_as_delta
+save_df_as_delta(df_silver, "/silver/hav_temperature_projection_latest")
 
 # COMMAND ----------
 
-df_check_silver = spark.read.format("delta").load(silver_latest_path)
-
+from helpers.adls_utils import read_df_as_delta
+df_check_silver = read_df_as_delta("/silver/hav_temperature_projection_latest")
 display(df_check_silver)

@@ -17,5 +17,16 @@ depth_data = depth_df_flat.select(
     "depthItem.depthValue"
 )
 
-depth_data.write.format("delta").saveAsTable("havvarsel_depth_index_to_meter_mapping")
+# COMMAND ----------
+
+from helpers.adls_utils import save_df_as_delta
+save_df_as_delta(depth_data, "depth_index_to_meter_mapping")
+
+
+# COMMAND ----------
+
+from helpers.adls_utils import read_df_as_delta
+
+df = read_df_as_delta("depth_index_to_meter_mapping")
+display(df)
 
