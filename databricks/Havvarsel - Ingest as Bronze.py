@@ -14,7 +14,6 @@ from pyspark.sql.functions import lit
 url = f"https://api.havvarsel.no/apis/duapi/havvarsel/v2/temperatureprojection/{lat}/{lon}?depth={depth_index}"
 headers = {"accept": "application/json"}
 response = requests.get(url, headers=headers)
-
 data = response.json()
 df_raw = spark.read.json(sc.parallelize([data]))
 
@@ -23,6 +22,7 @@ df_raw = spark.read.json(sc.parallelize([data]))
 
 # COMMAND ----------
 
+from datetime import datetime 
 depth_data = spark.table("havvarsel_depth_index_to_meter_mapping")
 depth_m = depth_data.filter(depth_data.depthIndex == depth_index).collect()[0].depthValue
 fetch_date = datetime.now().strftime("%Y-%m-%d")
@@ -31,12 +31,7 @@ df_bronze = df_raw.withColumn("depth_meters", lit(depth_m)).withColumn("fetch_da
 
 # COMMAND ----------
 
-from datetime import datetime
-
-bronze_fetch_date_path = f"/mnt/data/bronze/hav_temperature_projection_{fetch_date}"
-bronze_latest_data_path = "/mnt/data/bronze/hav_temperature_projection_latest"
-
-df_bronze.write.format("delta").mode("overwrite").save(bronze_fetch_date_path)
-df_bronze.write.format("delta").mode("overwrite").save(bronze_latest_data_path)
-
+from helpers.adls_utils import save_df_as_delta
+save_df_as_delta(df_bronze, f"/bronze/hav_temperature_projection_{fetch_date}")
+save_df_as_delta(df_bronze, "/bronze/hav_temperature_projection_latest")
 
