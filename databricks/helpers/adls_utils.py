@@ -18,6 +18,16 @@ def save_df_as_delta(df, table_name, mode="overwrite", file_path=get_adls_file_p
     connect_to_adls()
     df.write.format("delta").mode(mode).save(f"{file_path}/{table_name}")
 
+
+def save_df_as_csv(df, table_name, mode="overwrite", file_path=get_adls_file_path()): 
+    connect_to_adls()
+    df.coalesce(1).write.format("csv").mode(mode).option("header", "true").save(f"{file_path}/{table_name}")
+
+def read_df_as_csv(file_name, file_path=get_adls_file_path()): 
+    connect_to_adls()
+    df = spark.read.format("csv").load(f"{file_path}/{file_name}")
+    return df
+
 def read_df_as_delta(file_name, file_path=get_adls_file_path()): 
     connect_to_adls()
     df = spark.read.format("delta").load(f"{file_path}/{file_name}")
