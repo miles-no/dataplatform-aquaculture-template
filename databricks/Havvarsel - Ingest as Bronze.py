@@ -11,8 +11,6 @@ lon = 60.39
 import requests
 from pyspark.sql.functions import lit
 
-df_raw_agg = spark.dataframe()
-
 url = f"https://api.havvarsel.no/apis/duapi/havvarsel/v2/temperatureprojection/{lat}/{lon}?depth={depth_index}"
 headers = {"accept": "application/json"}
 response = requests.get(url, headers=headers)
