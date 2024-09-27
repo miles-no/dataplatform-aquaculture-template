@@ -1,4 +1,4 @@
-# AquaCulte Data Platform
+# AquaCulture Data Platform
 
 ## Overview
 
@@ -7,7 +7,8 @@ This project is a template for a data platform designed for small and medium-lar
 ## Architecture
 
 - **Azure Databricks Architecture**: This platform is built on the Azure Databricks architecture, providing a unified analytics framework that integrates with Azure services. You can learn more about Azure Databricks architecture [here](https://learn.microsoft.com/en-us/azure/architecture/solution-ideas/articles/azure-databricks-modern-analytics-architecture).
-  
+  ![image](https://github.com/user-attachments/assets/66c5ac82-26cc-4eef-a3a5-b471881acac2)
+
 - **Medallion Architecture**: The platform transforms data following the Medallion Architecture, enabling efficient and scalable data processing. Learn more about Medallion Architecture [here](https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion). 
 
 ## Data Flow
