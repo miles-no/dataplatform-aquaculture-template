@@ -25,11 +25,13 @@ depth_data = spark.table("havvarsel_depth_index_to_meter_mapping")
 import requests
 from pyspark.sql.functions import lit
 from datetime import datetime 
-from helpers.adls_utils import save_df_as_delta, get_adls_folder_path
+from helpers.adls_utils import save_df_as_delta, get_adls_folder_path, connect_to_adls
 
+connect_to_adls()
 
 fetch_date = datetime.now().strftime("%Y-%m-%d")
 bronze_df_file_name = f"bronze/hav_temperature_projection_{fetch_date}" # have a new bronze for each fetch date
+
 
 dbutils.fs.rm(f"{get_adls_folder_path()}/{bronze_df_file_name}", recurse=True) # delete old in order to remove duplicates
 
