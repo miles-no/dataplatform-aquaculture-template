@@ -10,3 +10,9 @@ variable "location" {
   type        = string
   default     = "norwayeast"
 }
+
+variable "github_repo" {
+  description = "The github repository where the code is stored"
+  type        = string
+  default     = "https://github.com/miles-no/dataplatform-aquaculture-template.git"
+}
