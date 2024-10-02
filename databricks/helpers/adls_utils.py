@@ -8,7 +8,7 @@ spark = SparkSession.builder.getOrCreate()
 def connect_to_adls(storage_account = STORAGE_ACCOUNT): 
     spark.conf.set(
         f"fs.azure.account.key.{storage_account}.dfs.core.windows.net",
-        dbutils.secrets.get(scope="terraform-created-scope", key="storage-account-key"))
+        dbutils.secrets.get(scope="terraform-created-scope", key="scope-storage-account-key"))
 
 def get_adls_folder_path(container = "datalake", storage_account = STORAGE_ACCOUNT): 
     return (f"abfss://{container}@{storage_account}.dfs.core.windows.net/havvarsel/")

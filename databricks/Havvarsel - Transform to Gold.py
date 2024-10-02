@@ -5,6 +5,14 @@ display(df_silver)
 
 # COMMAND ----------
 
+from datetime import datetime
+
+# Convert the current datetime to a string in the appropriate format
+current_time_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+df_silver = df_silver.where(f"time >= '{current_time_str}'")
+
+# COMMAND ----------
+
 from helpers.adls_utils import save_df_as_csv
 save_df_as_csv(df_silver, "/gold/hav_temperature_projection_latest")
 
