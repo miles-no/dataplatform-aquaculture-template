@@ -19,5 +19,5 @@ variable "github_repo" {
 
 variable "container_image" {
   description = "Container Image Name"
-  default     = "mycontainerimage:latest"
+  default     = "aquaapi:latest"
 }
