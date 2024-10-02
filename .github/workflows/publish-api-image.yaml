@@ -2,9 +2,8 @@ name: Build and Push Docker image to Azure Container Registry
 
 on:
   push:
-    # Uncomment this if you want to limit it to specific branches
-    # branches:
-    #   - main
+    branches:
+      - main
 
 jobs:
   build-and-push:
