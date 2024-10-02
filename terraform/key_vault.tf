@@ -35,3 +35,5 @@ resource "azurerm_key_vault_secret" "storage_account_key" {
   value        = azurerm_storage_account.data_lake.primary_access_key
   key_vault_id = azurerm_key_vault.dataplatform.id
 }
+
+

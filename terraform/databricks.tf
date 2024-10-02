@@ -18,16 +18,17 @@ resource "databricks_cluster" "this" {
   num_workers             = 2
 }
 
+resource "databricks_repo" "data_platform" {
+  url = var.github_repo
+}
+
+resource "databricks_secret" "publishing_api" {
+  key          = "scope-storage-account-key"
+  string_value = azurerm_storage_account.data_lake.primary_access_key
+  scope        = databricks_secret_scope.data_platform.id
+}
+
 resource "databricks_secret_scope" "data_platform" {
   name                     = "terraform-created-scope"
   initial_manage_principal = "users"
-
-  keyvault_metadata {
-    resource_id = azurerm_key_vault.dataplatform.id
-    dns_name    = azurerm_key_vault.dataplatform.vault_uri
-  }
-}
-
-resource "databricks_repo" "data_platform" {
-  url = var.github_repo
 }
