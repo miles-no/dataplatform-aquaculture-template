@@ -7,17 +7,19 @@ resource "azurerm_databricks_workspace" "this" {
   sku                 = "standard"
 }
 
-
+data "databricks_spark_version" "this" {
+  latest = true
+}
 resource "databricks_cluster" "this" {
   cluster_name            = "standard"
-  spark_version           = "7.3.x-scala2.12"
+  spark_version           = data.databricks_spark_version.this.id
   node_type_id            = "Standard_DS3_v2"
   autotermination_minutes = 30
   num_workers             = 2
 }
 
 resource "databricks_secret_scope" "data_platform" {
-  name                     = "terraform-demo-scope"
+  name                     = "terraform-created-scope"
   initial_manage_principal = "users"
 
   keyvault_metadata {
