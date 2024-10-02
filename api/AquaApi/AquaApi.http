@@ -1,0 +1,5 @@
+@AquaApi_HostAddress = http://localhost:5180
+
+GET {{AquaApi_HostAddress}}/weatherforecast/
+Accept: application/json
+

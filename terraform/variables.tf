@@ -16,3 +16,8 @@ variable "github_repo" {
   type        = string
   default     = "https://github.com/miles-no/dataplatform-aquaculture-template.git"
 }
+
+variable "container_image" {
+  description = "Container Image Name"
+  default     = "mycontainerimage:latest"
+}
