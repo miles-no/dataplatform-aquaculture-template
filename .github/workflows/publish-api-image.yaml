@@ -2,8 +2,9 @@ name: Build and Push Docker image to Azure Container Registry
 
 on:
   push:
-    #branches:
-     # - main  # Trigger the action on push to the main branch
+    # Uncomment this if you want to limit it to specific branches
+    # branches:
+    #   - main
 
 jobs:
   build-and-push:
@@ -20,12 +21,12 @@ jobs:
 
       # Step 3: Log in to Azure Container Registry
       - name: Log in to Azure Container Registry
-        run: echo "${{ secrets.ACR_PASSWORD }}" | docker login ${{ secrets.ACR_SERVER }}" -u "${{ secrets.ACR_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.ACR_PASSWORD }}" | docker login "${{ secrets.ACR_SERVER }}" -u "${{ secrets.ACR_USERNAME }}" --password-stdin
 
       # Step 4: Build the Docker image
       - name: Build the Docker image
-        run: docker build -t "${{ secrets.ACR_SERVER }}"/aquaapi:latest ./api/AquaApi
+        run: docker build -t "${{ secrets.ACR_SERVER }}/aquaapi:latest" ./api/AquaApi
 
       # Step 5: Push the Docker image to Azure Container Registry
       - name: Push the Docker image
-        run: docker push ${{ secrets.ACR_SERVER }}"/aquaapi:latest
+        run: docker push "${{ secrets.ACR_SERVER }}/aquaapi:latest"
