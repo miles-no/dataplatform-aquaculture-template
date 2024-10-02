@@ -12,7 +12,8 @@ df_bronze_1 = df_bronze_0.select(
     col("closestGridPointWithData.lat").alias("lat"),
     col("closestGridPointWithData.lon").alias("lon"),
     explode(col("variables")).alias("variable"),
-    "depth_meters"
+    "depth_meters",
+    "fetch_timestamp"
 )
 
 display(df_bronze_1)
@@ -30,7 +31,8 @@ df_bronze_2 = df_bronze_1.select(
     explode(col("variable.data")).alias("data"),
     col("data.rawTime").alias("time"),
     col("data.value").alias("ocean_temperature"), 
-    "depth_meters"   
+    "depth_meters",
+    "fetch_timestamp"   
 ).drop("data")
 
 
@@ -52,7 +54,8 @@ df_silver = df_bronze_3.select(
     "variable_name",
     "time",
     "ocean_temperature",
-    "depth_meters"
+    "depth_meters",
+    "fetch_timestamp"
 )
 
 display(df_silver)

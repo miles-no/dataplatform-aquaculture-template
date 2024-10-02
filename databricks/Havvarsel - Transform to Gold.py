@@ -20,7 +20,7 @@ files = dbutils.fs.ls(hav_gold_folder)
 old_file = [file.path for file in files if file.name.startswith("part-")][0]
 
 today = datetime.now().strftime("%Y-%m-%d")
-destination_path = f"{gold_path}/havtemp-pred-latest-{today}.csv"
+destination_path = f"{gold_path}/havtemp-pred-latest.csv"
 dbutils.fs.mv(old_file, destination_path)
 
 # COMMAND ----------
