@@ -14,14 +14,12 @@ resource "azurerm_linux_web_app" "web_app" {
 
   site_config {
     app_command_line = ""
-    #linux_fx_version = "DOCKER|${azurerm_container_registry.acr.login_server}/${var.container_image}"
-  }
-
-  app_settings = {
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
-    #"DOCKER_REGISTRY_SERVER_URL"          = "https://${azurerm_container_registry.acr.login_server}"
-    #"DOCKER_REGISTRY_SERVER_USERNAME"     = azurerm_container_registry.acr.admin_username
-    #"DOCKER_REGISTRY_SERVER_PASSWORD"     = azurerm_container_registry.acr.admin_password
+    application_stack {
+      docker_registry_url      = "https://${azurerm_container_registry.acr.login_server}"
+      docker_registry_password = azurerm_container_registry.acr.admin_password
+      docker_registry_username = azurerm_container_registry.acr.admin_username
+      docker_image_name        = "aquaapi:latest"
+    }
   }
 
   identity {
