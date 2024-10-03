@@ -26,7 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.MapGet("/", () => "AquaApi is running. Navigate to swagger to test.");
 
 // Endpoint to fetch a CSV from Blob Storage, parse it, and return JSON
 app.MapGet("/temperature_predictions/latest", async (BlobServiceClient blobServiceClient) =>
