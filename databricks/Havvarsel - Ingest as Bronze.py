@@ -29,7 +29,7 @@ from helpers.adls_utils import save_df_as_delta, get_adls_folder_path, connect_t
 
 connect_to_adls()
 
-fetch_time = datetime.now().strftime("%Y-%m-%d:%H")
+fetch_time = current_timestamp()
 bronze_df_file_name = f"bronze/hav_temperature_projection_{fetch_time}" # have a new bronze for each fetch date
 
 
@@ -52,7 +52,7 @@ for loc_nr, location in enumerate(locations):
 
         # add depth info and fetch date in order to have metadata in the table
         depth_m = depth_data.filter(depth_data.depthIndex == depth_index).collect()[0].depthValue
-        df_bronze = df_raw.withColumn("depth_meters", lit(depth_m)).withColumn("fetch_timestamp", lit(current_timestamp()))
+        df_bronze = df_raw.withColumn("depth_meters", lit(depth_m)).withColumn("fetch_timestamp", lit(fetch_time))
 
         save_df_as_delta(df_bronze, bronze_df_file_name, "append")
 
