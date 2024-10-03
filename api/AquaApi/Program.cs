@@ -23,7 +23,11 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapGet("/", () => "AquaApi is running. Navigate to swagger to test.");
+app.MapGet("/", (HttpContext context) => 
+{
+    context.Response.Redirect("/swagger");
+    return Task.CompletedTask;
+});
 
 // Endpoint to fetch a CSV from Blob Storage, parse it, and return JSON
 app.MapGet(
