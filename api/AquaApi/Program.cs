@@ -53,4 +53,4 @@ app.MapGet("/temperature_predictions/latest", async (BlobServiceClient blobServi
     })
     .WithName("DownloadCsvAndParseToJson");
 
-app.Run();
+app.Run("http://0.0.0.0:80");
