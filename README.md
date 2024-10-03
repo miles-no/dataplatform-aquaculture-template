@@ -26,6 +26,10 @@ In order for the api docker image to be published to the Azure Container Registr
 
 Navigate to the `Actions` tab in Github, and check if the actions script for publishing an image to Azure Container Registry have run successfully. If not, then restart it in order to publish the code to the registry 
 
+## Local Development
+
+1. Create a file called `api/AquaApi/appsettings.Development.json`. This must be .gitignored. Add a variable `ConnectionStrings:BlobStorage` storage connection string to the appsettings.
+2. The connection string must be on the format: `DefaultEndpointsProtoco=https;AccountName=<your-storage-account>;AccountKey=<storage-key>;EndpointSuffix=core.windows.net"`
 
 ## Overview
 
