@@ -23,10 +23,9 @@ depth_data = spark.table("havvarsel_depth_index_to_meter_mapping")
 # COMMAND ----------
 
 import requests
-from pyspark.sql.functions import lit
+from pyspark.sql.functions import lit, current_timestamp
 from datetime import datetime 
 from helpers.adls_utils import save_df_as_delta, get_adls_folder_path, connect_to_adls
-
 connect_to_adls()
 
 fetch_time = current_timestamp()
@@ -38,7 +37,6 @@ dbutils.fs.rm(f"{get_adls_folder_path()}/{bronze_df_file_name}", recurse=True) #
 
 # COMMAND ----------
 
-from pyspark.sql.functions import unix_timestamp, current_timestamp
 
 for loc_nr, location in enumerate(locations):
     for depth_index in depth_indices:
