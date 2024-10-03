@@ -23,14 +23,13 @@ depth_data = spark.table("havvarsel_depth_index_to_meter_mapping")
 # COMMAND ----------
 
 import requests
-from pyspark.sql.functions import lit
+from pyspark.sql.functions import lit, current_timestamp
 from datetime import datetime 
 from helpers.adls_utils import save_df_as_delta, get_adls_folder_path, connect_to_adls
-
 connect_to_adls()
 
-fetch_date = datetime.now().strftime("%Y-%m-%d")
-bronze_df_file_name = f"bronze/hav_temperature_projection_{fetch_date}" # have a new bronze for each fetch date
+fetch_time = current_timestamp()
+bronze_df_file_name = f"bronze/hav_temperature_projection_{fetch_time}" # have a new bronze for each fetch date
 
 
 dbutils.fs.rm(f"{get_adls_folder_path()}/{bronze_df_file_name}", recurse=True) # delete old in order to remove duplicates
@@ -38,7 +37,6 @@ dbutils.fs.rm(f"{get_adls_folder_path()}/{bronze_df_file_name}", recurse=True) #
 
 # COMMAND ----------
 
-from pyspark.sql.functions import unix_timestamp, current_timestamp
 
 for loc_nr, location in enumerate(locations):
     for depth_index in depth_indices:
@@ -52,7 +50,7 @@ for loc_nr, location in enumerate(locations):
 
         # add depth info and fetch date in order to have metadata in the table
         depth_m = depth_data.filter(depth_data.depthIndex == depth_index).collect()[0].depthValue
-        df_bronze = df_raw.withColumn("depth_meters", lit(depth_m)).withColumn("fetch_timestamp", lit(current_timestamp()))
+        df_bronze = df_raw.withColumn("depth_meters", lit(depth_m)).withColumn("fetch_timestamp", lit(fetch_time))
 
         save_df_as_delta(df_bronze, bronze_df_file_name, "append")
 
