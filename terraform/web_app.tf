@@ -22,6 +22,11 @@ resource "azurerm_linux_web_app" "web_app" {
     }
   }
 
+  app_settings = {
+    "ConnectionStrings:BlobStorage" : "DefaultEndpointsProtocol=https;AccountName=${azurerm_storage_account.data_lake.name};AccountKey=${azurerm_storage_account.data_lake.primary_access_key};EndpointSuffix=core.windows.net"
+    "DOCKER_ENABLE_CI" = true
+  }
+
   identity {
     type = "SystemAssigned"
   }
