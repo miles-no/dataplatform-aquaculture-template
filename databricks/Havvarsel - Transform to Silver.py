@@ -13,7 +13,7 @@ df_bronze_1 = df_bronze_0.select(
     col("closestGridPointWithData.lon").alias("lon"),
     explode(col("variables")).alias("variable"),
     "depth_meters",
-    "fetch_timestamp"
+    "fetch_timestamp_utc"
 )
 
 display(df_bronze_1)
@@ -29,10 +29,10 @@ df_bronze_2 = df_bronze_1.select(
     "lon",
     col("variable.variableName").alias("variable_name"),
     explode(col("variable.data")).alias("data"),
-    col("data.rawTime").alias("time"),
+    col("data.rawTime").alias("forecast_timestamp_utc"),
     col("data.value").alias("ocean_temperature"), 
     "depth_meters",
-    "fetch_timestamp"   
+    "fetch_timestamp_utc"   
 ).drop("data")
 
 
@@ -44,7 +44,7 @@ display(df_bronze_2)
 from pyspark.sql.functions import lit, col
 
 # Convert time to readable format
-df_bronze_3 = df_bronze_2.withColumn("time", from_unixtime(col("time") / 1000))
+df_bronze_3 = df_bronze_2.withColumn("forecast_timestamp_utc", from_unixtime(col("forecast_timestamp_utc") / 1000))
 
 
 # Explode dimensions if necessary
@@ -52,10 +52,10 @@ df_silver = df_bronze_3.select(
     "lat",
     "lon",
     "variable_name",
-    "time",
+    "forecast_timestamp_utc",
     "ocean_temperature",
     "depth_meters",
-    "fetch_timestamp"
+    "fetch_timestamp_utc"
 )
 
 display(df_silver)
