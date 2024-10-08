@@ -1,4 +1,3 @@
-# (Optional) Application Insights - For Monitoring
 resource "azurerm_application_insights" "apin" {
   name                = "dp-appinsights"
   location            = azurerm_resource_group.data_platform.location
