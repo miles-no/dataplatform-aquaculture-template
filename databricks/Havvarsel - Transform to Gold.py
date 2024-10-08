@@ -35,7 +35,7 @@ def transform_to_local_timezone(utc_time_str):
     local_time = utc_time.astimezone(pytz.timezone("Europe/Oslo"))
 
     # Return formatted time as a string with timezone offset
-    return local_time.strftime('%Y-%m-%d %H:%M:%S.%f %z')  # Includes milliseconds and offset
+    return local_time.strftime('%Y-%m-%d %H:%M:%S %z')  # Includes milliseconds and offset
 
 
 # Register the function as a UDF
@@ -52,7 +52,7 @@ df_silver_time_transformed = df_silver.withColumn(
 )
 
 df_silver_time_transformed = df_silver_time_transformed.withColumn(
-    "forecast_timestamp_utc",
+    "forecast_timestamp_local",
     transform_to_local_timezone_udf(col("forecast_timestamp_utc").cast(StringType()))
 )
 
