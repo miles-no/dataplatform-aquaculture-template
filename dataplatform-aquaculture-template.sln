@@ -1,30 +1,29 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{A6ED9EDF-D599-47B8-A6B2-2844E3FEBF9C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A6ED9EDF-D599-47B8-A6B2-2844E3FEBF9C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AquaApi", "api\AquaApi\AquaApi.csproj", "{35950192-252F-44A8-B710-63E470A67118}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AquaApi", "src\AquaApi\AquaApi.csproj", "{35950192-252F-44A8-B710-63E470A67118}"
 EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{35950192-252F-44A8-B710-63E470A67118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35950192-252F-44A8-B710-63E470A67118}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35950192-252F-44A8-B710-63E470A67118}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35950192-252F-44A8-B710-63E470A67118}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{35950192-252F-44A8-B710-63E470A67118} = {A6ED9EDF-D599-47B8-A6B2-2844E3FEBF9C}
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {00A64A12-39CC-40EA-996D-79EA6539A35B}
-	EndGlobalSection
+    GlobalSection(SolutionConfigurationPlatforms) = preSolution
+        Debug|Any CPU = Debug|Any CPU
+        Release|Any CPU = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(ProjectConfigurationPlatforms) = postSolution
+        {35950192-252F-44A8-B710-63E470A67118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+        {35950192-252F-44A8-B710-63E470A67118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {35950192-252F-44A8-B710-63E470A67118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {35950192-252F-44A8-B710-63E470A67118}.Release|Any CPU.Build.0 = Release|Any CPU
+    EndGlobalSection
+    GlobalSection(SolutionProperties) = preSolution
+        HideSolutionNode = FALSE
+    EndGlobalSection
+    GlobalSection(NestedProjects) = preSolution
+        {35950192-252F-44A8-B710-63E470A67118} = {A6ED9EDF-D599-47B8-A6B2-2844E3FEBF9C}
+    EndGlobalSection
+    GlobalSection(ExtensibilityGlobals) = postSolution
+        SolutionGuid = {00A64A12-39CC-40EA-996D-79EA6539A35B}
+    EndGlobalSection
 EndGlobal
