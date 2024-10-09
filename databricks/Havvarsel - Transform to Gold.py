@@ -35,7 +35,7 @@ def transform_to_local_timezone(utc_time_str):
     local_time = utc_time.astimezone(pytz.timezone("Europe/Oslo"))
 
     # Return formatted time as a string with timezone offset
-    return local_time.strftime('%Y-%m-%d %H:%M:%S %z')  # Includes milliseconds and offset
+    return local_time.strftime('%Y-%m-%d %H:%M:%S %z')  # Includes the timezone offset
 
 
 # Register the function as a UDF
