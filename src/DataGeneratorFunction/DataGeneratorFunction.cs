@@ -15,7 +15,7 @@ namespace DataGeneratorFunction
         }
 
         [Function("DataGeneratorFunction")]
-        [EventHubOutput("dev-aquaplatform-ehn", Connection = "EventHubConnectionString")]
+        [EventHubOutput("dev-aquaplatform-eventhub", Connection = "EventHubConnectionString")]
         public string Run([TimerTrigger("*/1 * * * * *")] TimerInfo myTimer)
         {
             _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
