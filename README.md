@@ -14,17 +14,20 @@ This is then referenced in the `terraform/backend.tf` clause in the terraform co
 3. terraform plan
 4. terraform apply
 
-### 3. Add Azure Container Registry secrets into Github actions 
+### 3. Add deployment secrets into Github actions 
 
-In order for the api docker image to be published to the Azure Container Registry (ACR) we need to add three variables to the github repo. These variables are listed below, and can be found in the azure portal after navigating
+In order for the api docker image to be published to the Azure Container Registry (ACR) we need to add three variables to the github repo. These variables are listed below, and can be found in the azure portal after navigating. Also one publish profile from the azure function is required in order to publish 
 
 1. ACR_PASSWORD
 2. ACR_USERNAME 
 3. ARC_SERVER (the whole path to the arc, including the .azurecr.io suffix
+4. AZURE_FUNCTIONAPP_PUBLISH_PROFILE (found by navigating to the azure function in the portal, and click 'publish profile') 
 
 ### 4. Run the Github Actions to publish 
 
-Navigate to the `Actions` tab in Github, and check if the actions script for publishing an image to Azure Container Registry have run successfully. If not, then restart it in order to publish the code to the registry 
+Navigate to the `Actions` tab in Github, and check if the actions script for publishing an image to Azure Container Registry have run successfully. If not, then restart it in order to publish the code to the registry. 
+
+Also run the action to publish the azure fuction. 
 
 ## Local Development
 
