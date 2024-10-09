@@ -24,4 +24,9 @@ resource "azurerm_linux_function_app" "func" {
       use_dotnet_isolated_runtime = true
     }
   }
+  app_settings = {
+    "EventHubConnectionString" = azurerm_eventhub_namespace_authorization_rule.this.primary_connection_string
+  }
 }
+
+
