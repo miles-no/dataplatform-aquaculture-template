@@ -17,8 +17,11 @@ resource "azurerm_linux_function_app" "func" {
   service_plan_id            = azurerm_service_plan.func.id
   site_config {
     application_insights_connection_string = azurerm_application_insights.apin.connection_string
+    always_on                              = true
+
     application_stack {
-      dotnet_version = "8.0"
+      dotnet_version              = "8.0"
+      use_dotnet_isolated_runtime = true
     }
   }
 }
