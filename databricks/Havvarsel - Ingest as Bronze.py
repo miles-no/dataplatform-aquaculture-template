@@ -53,7 +53,7 @@ for loc_nr, location in enumerate(locations):
 
         # add depth info and fetch date in order to have metadata in the table
         depth_m = depth_data.filter(depth_data.depthIndex == depth_index).collect()[0].depthValue
-        df_bronze = df_raw.withColumn("depth_meters", lit(depth_m)).withColumn("fetch_timestamp", lit(fetch_time))
+        df_bronze = df_raw.withColumn("depth_meters", lit(depth_m)).withColumn("fetch_timestamp_utc", lit(fetch_time.strftime("%Y-%m-%d %H:%M:%S")))
 
         save_df_as_delta(df_bronze, bronze_df_file_name, "append")
 
