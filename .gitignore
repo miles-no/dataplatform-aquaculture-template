@@ -43,3 +43,4 @@ terraform.rc
 api/AquaApi/appsettings.Development.json
 
 **/appsettings.Development.json
+src/DataGeneratorFunction/local.settings.json
