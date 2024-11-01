@@ -43,22 +43,23 @@ transform_to_local_timezone_udf = udf(transform_to_local_timezone, StringType())
 
 # COMMAND ----------
 
-from pyspark.sql.functions import col
-
-# Assume df_silver has a 'time' column in UTC
-df_silver_time_transformed = df_silver.withColumn(
-    "fetch_timestamp_local",
-    transform_to_local_timezone_udf(col("fetch_timestamp_utc").cast(StringType()))
-)
-
-df_silver_time_transformed = df_silver_time_transformed.withColumn(
-    "forecast_timestamp_local",
-    transform_to_local_timezone_udf(col("forecast_timestamp_utc").cast(StringType()))
-)
+df_silver_time_transformed = df_silver \
+    .withColumn(
+        "fetch_timestamp_local",
+        transform_to_local_timezone_udf(col("fetch_timestamp_utc").cast(StringType()))
+    ) \
+    .withColumn(
+        "forecast_timestamp_local",
+        transform_to_local_timezone_udf(col("forecast_timestamp_utc").cast(StringType()))
+    )
 
 # COMMAND ----------
 
 display(df_silver_time_transformed)
+
+# save as a mangaged table for SQL Dashboards
+df_silver_time_transformed.write.format("delta").mode("overwrite").saveAsTable("gold_hav_temperature_projection_latest")
+
 
 # COMMAND ----------
 

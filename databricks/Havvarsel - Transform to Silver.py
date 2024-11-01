@@ -1,65 +1,26 @@
 # Databricks notebook source
 from helpers.adls_utils import read_df_as_delta
-df_bronze_0 = read_df_as_delta("/bronze/hav_temperature_projection_latest")
-display(df_bronze_0)
+df_bronze = read_df_as_delta("/bronze/hav_temperature_projection_latest")
+display(df_bronze)
 
 # COMMAND ----------
 
-from pyspark.sql.functions import explode, from_unixtime, col
+from pyspark.sql.functions import col, explode, from_unixtime
 
-# Extract lat and lon, and explode variables
-df_bronze_1 = df_bronze_0.select(
+# Extract lat and lon, and select the first element from variables
+df_silver = df_bronze.select(
     col("closestGridPointWithData.lat").alias("lat"),
     col("closestGridPointWithData.lon").alias("lon"),
-    explode(col("variables")).alias("variable"),
-    "depth_meters",
-    "fetch_timestamp_utc"
-)
-
-display(df_bronze_1)
-
-# COMMAND ----------
-
-from pyspark.sql.functions import from_unixtime
-
-
-# Extract fields from variable
-df_bronze_2 = df_bronze_1.select(
-    "lat",
-    "lon",
-    col("variable.variableName").alias("variable_name"),
-    explode(col("variable.data")).alias("data"),
+    explode(col("variables")[0]["data"]).alias("data"),
     col("data.rawTime").alias("forecast_timestamp_utc"),
     col("data.value").alias("ocean_temperature"), 
     "depth_meters",
-    "fetch_timestamp_utc"   
-).drop("data")
-
-
-
-display(df_bronze_2)
-
-# COMMAND ----------
-
-from pyspark.sql.functions import lit, col
-
-# Convert time to readable format
-df_bronze_3 = df_bronze_2.withColumn("forecast_timestamp_utc", from_unixtime(col("forecast_timestamp_utc") / 1000))
-
-
-# Explode dimensions if necessary
-df_silver = df_bronze_3.select(
-    "lat",
-    "lon",
-    "variable_name",
-    "forecast_timestamp_utc",
-    "ocean_temperature",
-    "depth_meters",
     "fetch_timestamp_utc"
-)
+) \
+.drop("data") \
+.withColumn("forecast_timestamp_utc", from_unixtime(col("forecast_timestamp_utc") / 1000))
 
 display(df_silver)
-
 
 # COMMAND ----------
 
